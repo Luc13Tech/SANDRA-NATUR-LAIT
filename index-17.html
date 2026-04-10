@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sandra Natur'lait – Savons Palmida & Liquides 100% Naturel Bénin</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --beige: #EDE4D6;
+    --sage: #4A6741;
+    --sage-light: #7A9E6F;
+    --sage-dark: #2E3F2A;
+    --gold: #C9A96E;
+    --rose: #E8C5B8;
+    --text: #2A2218;
+    --text-muted: #7A6E60;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ===== CART BADGE ===== */
+  #cart-badge {
+    position: fixed;
+    top: 18px; right: 20px;
+    z-index: 1000;
+    background: var(--sage);
+    color: white;
+    border-radius: 50px;
+    padding: 10px 18px;
+    font-size: 0.85rem;
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 4px 20px rgba(74,103,65,0.3);
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+  }
+  #cart-badge:hover { background: var(--sage-dark); transform: translateY(-2px); }
+  #cart-count {
+    background: var(--gold);
+    color: var(--text);
+    border-radius: 50%;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 600;
+  }
+  .cart-pulse { animation: pulse 0.4s ease; }
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+  }
+
+  /* ===== CART NOTIFICATION ===== */
+  #cart-notif {
+    position: fixed;
+    top: 70px; right: 20px;
+    background: var(--sage-dark);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    z-index: 999;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+  #cart-notif.show { opacity: 1; transform: translateY(0); }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 900;
+    padding: 18px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,169,110,0.2);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--sage-dark);
+    letter-spacing: 1px;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); font-style: italic; }
+  .nav-links { display: flex; gap: 30px; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--sage); }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 40px 80px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--cream) 0%, #EEE8DC 50%, #E5EFDF 100%);
+  }
+  .hero-bg-decor {
+    position: absolute; top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(122,158,111,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-bg-decor2 {
+    position: absolute; bottom: -150px; left: -50px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(201,169,110,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-content { max-width: 600px; animation: fadeUp 1s ease both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--sage);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 50px;
+    margin-bottom: 24px;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--sage-dark);
+    margin-bottom: 12px;
+  }
+  .hero-title em { color: var(--gold); font-style: italic; }
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+  .hero-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 40px;
+    max-width: 460px;
+  }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--sage);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(74,103,65,0.3);
+  }
+  .btn-primary:hover { background: var(--sage-dark); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--sage);
+    border: 1.5px solid var(--sage);
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  .btn-outline:hover { background: var(--sage); color: white; }
+
+  /* ===== SECTION HEADERS ===== */
+  .section-header { text-align: center; margin-bottom: 60px; }
+  .section-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    color: var(--sage-dark);
+    line-height: 1.1;
+  }
+  .section-title em { font-style: italic; color: var(--sage); }
+  .section-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-top: 16px;
+    line-height: 1.7;
+  }
+  .section-line {
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--sage-light));
+    margin: 20px auto 0;
+    border-radius: 2px;
+  }
+
+  /* ===== GAMME SAVON LIQUIDE ===== */
+  #liquide {
+    padding: 100px 40px;
+    background: var(--white);
+  }
+
+  /* Color Selector */
+  .color-selector {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+  }
+  .color-btn {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background: var(--cream);
+    color: var(--text);
+    transition: all 0.3s;
+  }
+  .color-btn.active { border-color: var(--sage); background: var(--sage); color: white; }
+  .color-dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.5);
+  }
+
+  /* Product Cards Grid */
+  .liquid-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .liquid-card {
+    background: var(--cream);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.35s ease;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+  .liquid-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(74,103,65,0.15); }
+  .liquid-visual {
+    height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .liquid-bottle {
+    width: 70px; height: 130px;
+    border-radius: 12px 12px 20px 20px;
+    position: relative;
+    transition: transform 0.3s;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+  .liquid-card:hover .liquid-bottle { transform: scale(1.06) rotate(-2deg); }
+  .bottle-cap {
+    width: 30px; height: 16px;
+    background: white;
+    border-radius: 6px 6px 0 0;
+    margin: 0 auto;
+    position: relative; top: 4px;
+    opacity: 0.9;
+  }
+  .bottle-label {
+    position: absolute;
+    bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: rgba(255,255,255,0.85);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--sage-dark);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .liquid-card-body { padding: 18px 20px 20px; }
+  .liquid-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--sage-dark);
+    margin-bottom: 4px;
+  }
+  .liquid-volume {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+  }
+  .liquid-price {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--sage);
+    margin-bottom: 14px;
+  }
+  .liquid-price span {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+  .btn-add {
+    width: 100%;
+    background: var(--sage);
+    color: white;
+    border: none;
+    padding: 11px;
+    border-radius: 50px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .btn-add:hover { background: var(--sage-dark); }
+
+  /* ===== GAMME PALMIDA ===== */
+  #palmida {
+    padding: 100px 40px;
+    background: linear-gradient(180deg, #EFF5EC 0%, var(--cream) 100%);
+  }
+  .palmida-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .palmida-card {
+    background: white;
+    border-radius: 24px;
+    padding: 30px 24px 24px;
+    text-align: center;
+    transition: all 0.35s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+  .palmida-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(74,103,65,0.12); }
+  .palmida-shape {
+    width: 100px; height: 100px;
+    margin: 0 auto 20px;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.3s;
+    font-size: 3.5rem;
+  }
+  .palmida-card:hover .palmida-shape { transform: scale(1.1) rotate(5deg); }
+  .palmida-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--sage-dark);
+    margin-bottom: 6px;
+  }
+  .palmida-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .palmida-sizes {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .size-option {
+    border: 1.5px solid var(--beige);
+    border-radius: 12px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .size-option:hover, .size-option.selected { border-color: var(--sage); background: #EFF5EC; }
+  .size-label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .size-price { font-size: 0.95rem; font-weight: 600; color: var(--sage); margin-top: 2px; }
+  .palmida-btn {
+    width: 100%;
+    background: transparent;
+    color: var(--sage);
+    border: 1.5px solid var(--sage);
+    padding: 11px;
+    border-radius: 50px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .palmida-btn:hover { background: var(--sage); color: white; }
+
+  /* ===== WHY US ===== */
+  #why {
+    padding: 80px 40px;
+    background: var(--sage-dark);
+    color: white;
+  }
+  #why .section-title { color: var(--cream); }
+  #why .section-tag { color: var(--gold); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .why-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 30px;
+    transition: all 0.3s;
+  }
+  .why-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
+  .why-icon { font-size: 2rem; margin-bottom: 16px; }
+  .why-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; color: var(--gold); }
+  .why-text { font-size: 0.88rem; color: rgba(255,255,255,0.7); line-height: 1.7; }
+
+  /* ===== CART PANEL ===== */
+  #cart-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1100;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  #cart-overlay.open { opacity: 1; pointer-events: all; }
+  #cart-panel {
+    position: fixed;
+    top: 0; right: -420px;
+    width: 100%; max-width: 420px;
+    height: 100vh;
+    background: var(--cream);
+    z-index: 1200;
+    transition: right 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+    display: flex; flex-direction: column;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+  }
+  #cart-panel.open { right: 0; }
+  .cart-header {
+    padding: 28px 28px 20px;
+    border-bottom: 1px solid var(--beige);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .cart-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--sage-dark);
+  }
+  .cart-close {
+    background: none; border: none;
+    font-size: 1.5rem; cursor: pointer;
+    color: var(--text-muted);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .cart-close:hover { background: var(--beige); }
+  .cart-items { flex: 1; overflow-y: auto; padding: 20px 28px; }
+  .cart-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+  .cart-empty-icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.4; }
+  .cart-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--beige);
+  }
+  .cart-item-emoji { font-size: 2rem; }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-weight: 500; font-size: 0.9rem; color: var(--text); margin-bottom: 2px; }
+  .cart-item-sub { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 8px; }
+  .cart-item-controls { display: flex; align-items: center; gap: 10px; }
+  .qty-btn {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid var(--beige);
+    background: white;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .qty-btn:hover { border-color: var(--sage); color: var(--sage); }
+  .qty-val { font-weight: 600; font-size: 0.9rem; min-width: 20px; text-align: center; }
+  .cart-item-price { font-weight: 600; color: var(--sage); font-size: 0.95rem; white-space: nowrap; }
+  .del-btn {
+    background: none; border: none;
+    color: var(--text-muted);
+    cursor: pointer; font-size: 1rem;
+    padding: 4px;
+    transition: color 0.2s;
+  }
+  .del-btn:hover { color: #e05555; }
+  .cart-footer {
+    padding: 20px 28px 28px;
+    border-top: 1px solid var(--beige);
+  }
+  .cart-total {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px;
+  }
+  .cart-total-label { font-size: 0.88rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+  .cart-total-amount { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: var(--sage-dark); }
+  .btn-whatsapp {
+    width: 100%;
+    background: #25D366;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 50px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: all 0.3s;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+  }
+  .btn-whatsapp:hover { background: #1EBE5A; transform: translateY(-2px); }
+  .cart-note { font-size: 0.76rem; color: var(--text-muted); text-align: center; line-height: 1.5; }
+
+  /* ===== LIVRAISON & CONTACT ===== */
+  #contact {
+    padding: 80px 40px;
+    background: var(--beige);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .contact-card {
+    background: white;
+    border-radius: 20px;
+    padding: 36px;
+  }
+  .contact-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--sage-dark);
+    margin-bottom: 20px;
+  }
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .contact-icon { font-size: 1.2rem; margin-top: 2px; flex-shrink: 0; }
+  .delivery-zone {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--beige);
+    font-size: 0.88rem;
+  }
+  .delivery-zone:last-child { border-bottom: none; }
+  .zone-name { font-weight: 500; color: var(--text); }
+  .zone-price { font-weight: 600; color: var(--sage); }
+  .whatsapp-big {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    background: #25D366;
+    color: white;
+    text-decoration: none;
+    padding: 16px 28px;
+    border-radius: 50px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-top: 24px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+  }
+  .whatsapp-big:hover { background: #1EBE5A; transform: translateY(-2px); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--sage-dark);
+    color: rgba(255,255,255,0.7);
+    padding: 40px;
+    text-align: center;
+    font-size: 0.85rem;
+    line-height: 1.8;
+  }
+  footer strong { color: var(--gold); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    #hero { padding: 100px 24px 60px; }
+    #liquide, #palmida, #why, #contact { padding: 70px 24px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    #cart-badge { top: 14px; right: 14px; }
+    .liquid-grid, .palmida-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  }
+
+  /* Stagger animations */
+  .liquid-card:nth-child(1) { animation-delay: 0.05s; }
+  .liquid-card:nth-child(2) { animation-delay: 0.1s; }
+  .liquid-card:nth-child(3) { animation-delay: 0.15s; }
+  .liquid-card:nth-child(4) { animation-delay: 0.2s; }
+  .liquid-card:nth-child(5) { animation-delay: 0.25s; }
+  .liquid-card:nth-child(6) { animation-delay: 0.3s; }
+  .liquid-card:nth-child(7) { animation-delay: 0.35s; }
+  .liquid-card:nth-child(8) { animation-delay: 0.4s; }
+  .liquid-card:nth-child(9) { animation-delay: 0.45s; }
+  .liquid-card:nth-child(10) { animation-delay: 0.5s; }
+  .palmida-card:nth-child(1) { animation-delay: 0.05s; }
+  .palmida-card:nth-child(2) { animation-delay: 0.1s; }
+  .palmida-card:nth-child(3) { animation-delay: 0.15s; }
+  .palmida-card:nth-child(4) { animation-delay: 0.2s; }
+  .palmida-card:nth-child(5) { animation-delay: 0.25s; }
+  .palmida-card:nth-child(6) { animation-delay: 0.3s; }
+  .palmida-card:nth-child(7) { animation-delay: 0.35s; }
+  .palmida-card:nth-child(8) { animation-delay: 0.4s; }
+  .palmida-card:nth-child(9) { animation-delay: 0.45s; }
+  .palmida-card:nth-child(10) { animation-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<!-- CART BADGE -->
+<div id="cart-badge" onclick="toggleCart()">
+  🛍️ Mon panier
+  <div id="cart-count">0</div>
+</div>
+<div id="cart-notif">✓ Produit ajouté !</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Sandra <em>Natur'lait</em></a>
+  <ul class="nav-links">
+    <li><a href="#liquide">Savon Liquide</a></li>
+    <li><a href="#palmida">Palmida</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-decor"></div>
+  <div class="hero-bg-decor2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">🌿 100% Naturel · Bénin</div>
+    <h1 class="hero-title">Sandra<br><em>Natur'lait</em></h1>
+    <p class="hero-subtitle">Le naturel en couleurs et en formes</p>
+    <p class="hero-desc">Savons liquides colorés et savons Palmida façonnés à la main, fabriqués au Bénin avec des ingrédients naturels. Doux pour la peau, parfumés avec soin, livrés partout au Bénin.</p>
+    <div class="hero-actions">
+      <a href="#liquide" class="btn-primary">Savons Liquides 🧴</a>
+      <a href="#palmida" class="btn-outline">Savons Palmida 🧼</a>
+    </div>
+  </div>
+</section>
+
+<!-- GAMME SAVON LIQUIDE -->
+<section id="liquide">
+  <div class="section-header">
+    <div class="section-tag">Gamme 01</div>
+    <h2 class="section-title">Savon <em>Liquide</em></h2>
+    <p class="section-desc">5 couleurs naturelles · 5 formats disponibles · Doux et hydratant</p>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="color-selector">
+    <button class="color-btn active" onclick="filterLiquid('all', this)">
+      Toutes les couleurs
+    </button>
+    <button class="color-btn" onclick="filterLiquid('jaune', this)">
+      <div class="color-dot" style="background:#F5C842;"></div> Jaune Miel
+    </button>
+    <button class="color-btn" onclick="filterLiquid('vert', this)">
+      <div class="color-dot" style="background:#6DB56D;"></div> Vert Aloé
+    </button>
+    <button class="color-btn" onclick="filterLiquid('rose', this)">
+      <div class="color-dot" style="background:#E8A0A0;"></div> Rose Doux
+    </button>
+    <button class="color-btn" onclick="filterLiquid('bleu', this)">
+      <div class="color-dot" style="background:#6AACDC;"></div> Bleu Lagon
+    </button>
+    <button class="color-btn" onclick="filterLiquid('transparent', this)">
+      <div class="color-dot" style="background:#E8F4EA; border:2px solid #ccc;"></div> Transparent Aloé
+    </button>
+  </div>
+
+  <div class="liquid-grid" id="liquid-grid"></div>
+</section>
+
+<!-- GAMME PALMIDA -->
+<section id="palmida">
+  <div class="section-header">
+    <div class="section-tag">Gamme 02</div>
+    <h2 class="section-title">Savon <em>Palmida</em></h2>
+    <p class="section-desc">Façonnés à la main · 5 formes uniques · Petit & Grand format</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="palmida-grid" id="palmida-grid"></div>
+</section>
+
+<!-- POURQUOI NOUS -->
+<section id="why">
+  <div class="section-header">
+    <div class="section-tag">Nos Engagements</div>
+    <h2 class="section-title" style="color:var(--cream);">Pourquoi <em style="color:var(--gold)">Sandra Natur'lait</em> ?</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">🌿</div>
+      <div class="why-title">100% Naturel</div>
+      <div class="why-text">Sans soude agressive, sans produits chimiques cachés. Doux pour toute la famille, même les peaux sensibles.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🎨</div>
+      <div class="why-title">Couleurs Visibles</div>
+      <div class="why-text">Chaque couleur correspond à une formule spécifique. Vous savez exactement ce que vous commandez.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📦</div>
+      <div class="why-title">5 Formats au Choix</div>
+      <div class="why-text">Du ¼ litre pour essayer, jusqu'à 5 litres pour les revendeurs. Un format pour chaque budget.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🎁</div>
+      <div class="why-title">Cadeaux Uniques</div>
+      <div class="why-text">Savons Palmida en forme de cœur, étoile ou fleur. Parfaits pour offrir à vos proches.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🚚</div>
+      <div class="why-title">Livraison Bénin</div>
+      <div class="why-text">Livraison partout au Bénin. Cotonou, Porto-Novo, Parakou et toutes les villes.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">💬</div>
+      <div class="why-title">Commande WhatsApp</div>
+      <div class="why-text">Validez votre commande en un clic. Message automatique avec votre liste de produits et total.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT & LIVRAISON -->
+<section id="contact">
+  <div class="section-header">
+    <div class="section-tag">Livraison & Contact</div>
+    <h2 class="section-title">Commander & <em>Livraison</em></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-card-title">🚚 Zones de livraison</div>
+      <div class="delivery-zone">
+        <span class="zone-name">📍 Cotonou</span>
+        <span class="zone-price">500 FCFA</span>
+      </div>
+      <div class="delivery-zone">
+        <span class="zone-name">📍 Porto-Novo</span>
+        <span class="zone-price">1 000 FCFA</span>
+      </div>
+      <div class="delivery-zone">
+        <span class="zone-name">📍 Abomey-Calavi</span>
+        <span class="zone-price">700 FCFA</span>
+      </div>
+      <div class="delivery-zone">
+        <span class="zone-name">📍 Parakou & intérieur</span>
+        <span class="zone-price">1 500 FCFA</span>
+      </div>
+      <div class="delivery-zone">
+        <span class="zone-name">📍 Reste du Bénin</span>
+        <span class="zone-price">Sur devis</span>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-title">📞 Nous contacter</div>
+      <div class="contact-item">
+        <span class="contact-icon">📱</span>
+        <div>
+          <strong>+229 01 90 73 57 21</strong><br>
+          +229 01 69 63 91 06<br>
+          +229 01 62 33 53 59
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">🕐</span>
+        <div>Lundi – Samedi<br>8h00 – 18h00</div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">📍</span>
+        <div>Bénin (livraison nationale)</div>
+      </div>
+      <a href="https://wa.me/22990735721" target="_blank" class="whatsapp-big">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Commander sur WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--gold);margin-bottom:8px;">Sandra Natur'lait</div>
+  <div>Savons Palmida & Liquides · 100% Naturel · Fabriqué au <strong>Bénin</strong></div>
+  <div style="margin-top:8px;font-size:0.78rem;opacity:0.6;">© 2025 Sandra Natur'lait · Tous droits réservés</div>
+</footer>
+
+<!-- CART PANEL -->
+<div id="cart-overlay" onclick="toggleCart()"></div>
+<div id="cart-panel">
+  <div class="cart-header">
+    <div class="cart-title">🛍️ Mon Panier</div>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items-list">
+    <div class="cart-empty">
+      <div class="cart-empty-icon">🛒</div>
+      Votre panier est vide.<br>Ajoutez des produits !
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <div class="cart-total-label">Total</div>
+      <div class="cart-total-amount"><span id="cart-total">0</span> FCFA</div>
+    </div>
+    <button class="btn-whatsapp" onclick="sendWhatsApp()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Valider sur WhatsApp
+    </button>
+    <p class="cart-note">Vous serez redirigé vers WhatsApp avec votre commande pré-remplie au +229 90 73 57 21</p>
+  </div>
+</div>
+
+<script>
+// ===== DATA =====
+const COLORS = [
+  { id: 'jaune',       name: 'Jaune Miel',      color: '#F5C842', bg: '#FFF8DC', emoji: '🍯' },
+  { id: 'vert',        name: 'Vert Aloé',        color: '#6DB56D', bg: '#E8F5E8', emoji: '🌿' },
+  { id: 'rose',        name: 'Rose Doux',        color: '#E8A0A0', bg: '#FFF0F0', emoji: '🌸' },
+  { id: 'bleu',        name: 'Bleu Lagon',       color: '#6AACDC', bg: '#EAF5FF', emoji: '🌊' },
+  { id: 'transparent', name: 'Transparent Aloé', color: '#C8E6C9', bg: '#F1FAF1', emoji: '💧' },
+];
+
+const VOLUMES = [
+  { label: '¼ L',   ml: 250,  price: 250  },
+  { label: '0,5 L', ml: 500,  price: 450  },
+  { label: '1 L',   ml: 1000, price: 800  },
+  { label: '1,5 L', ml: 1500, price: 1100 },
+  { label: '5 L',   ml: 5000, price: 3500 },
+];
+
+const SHAPES = [
+  { id: 'coeur',    name: 'Cœur',      emoji: '🫀', desc: 'Parfait pour offrir à vos proches', smallPrice: 150, bigPrice: 300 },
+  { id: 'etoile',   name: 'Étoile',    emoji: '⭐', desc: 'Original et lumineux', smallPrice: 150, bigPrice: 300 },
+  { id: 'cube',     name: 'Cube',      emoji: '🧊', desc: 'Moderne et élégant', smallPrice: 150, bigPrice: 300 },
+  { id: 'fleur',    name: 'Fleur',     emoji: '🌸', desc: 'Délicat et parfumé', smallPrice: 150, bigPrice: 300 },
+  { id: 'classique',name: 'Classique', emoji: '🧼', desc: 'Le grand classique Palmida', smallPrice: 150, bigPrice: 300 },
+];
+
+// ===== CART STATE =====
+let cart = [];
+let selectedSizes = {}; // palmida card selected size
+
+// ===== RENDER LIQUID PRODUCTS =====
+function renderLiquid(filter = 'all') {
+  const grid = document.getElementById('liquid-grid');
+  grid.innerHTML = '';
+
+  const colors = filter === 'all' ? COLORS : COLORS.filter(c => c.id === filter);
+
+  colors.forEach((color, ci) => {
+    VOLUMES.forEach((vol, vi) => {
+      const card = document.createElement('div');
+      card.className = 'liquid-card';
+      card.dataset.color = color.id;
+      card.style.animationDelay = `${(ci * VOLUMES.length + vi) * 0.04}s`;
+
+      card.innerHTML = `
+        <div class="liquid-visual" style="background:${color.bg};">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div class="bottle-cap" style="background:${color.color};opacity:0.8;"></div>
+            <div class="liquid-bottle" style="background:linear-gradient(160deg,${color.color}cc,${color.color});position:relative;">
+              <div class="bottle-label">${color.name}</div>
+            </div>
+          </div>
+          <div style="position:absolute;top:12px;right:14px;font-size:1.4rem;">${color.emoji}</div>
+        </div>
+        <div class="liquid-card-body">
+          <div class="liquid-name">${color.name}</div>
+          <div class="liquid-volume">${vol.label} · Savon Liquide</div>
+          <div class="liquid-price">${vol.price.toLocaleString('fr-FR')} <span>FCFA</span></div>
+          <button class="btn-add" onclick="addToCart('liquid','${color.id}','${color.name}','${vol.label}',${vol.price},'${color.emoji}')">
+            <span>+</span> Ajouter au panier
+          </button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  });
+}
+
+// ===== RENDER PALMIDA =====
+function renderPalmida() {
+  const grid = document.getElementById('palmida-grid');
+  grid.innerHTML = '';
+
+  SHAPES.forEach((shape, i) => {
+    selectedSizes[shape.id] = 'small';
+    const card = document.createElement('div');
+    card.className = 'palmida-card';
+    card.id = `palmida-${shape.id}`;
+    card.style.animationDelay = `${i * 0.08}s`;
+
+    card.innerHTML = `
+      <div class="palmida-shape">${shape.emoji}</div>
+      <div class="palmida-name">${shape.name}</div>
+      <div class="palmida-desc">${shape.desc}</div>
+      <div class="palmida-sizes">
+        <div class="size-option selected" id="size-small-${shape.id}" onclick="selectSize('${shape.id}','small',${shape.smallPrice})">
+          <div class="size-label">Petit (50g)</div>
+          <div class="size-price">${shape.smallPrice} FCFA</div>
+        </div>
+        <div class="size-option" id="size-big-${shape.id}" onclick="selectSize('${shape.id}','big',${shape.bigPrice})">
+          <div class="size-label">Grand (100g)</div>
+          <div class="size-price">${shape.bigPrice} FCFA</div>
+        </div>
+      </div>
+      <button class="palmida-btn" onclick="addPalmidaToCart('${shape.id}','${shape.name}','${shape.emoji}',${shape.smallPrice},${shape.bigPrice})">
+        + Ajouter au panier
+      </button>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function selectSize(shapeId, size, price) {
+  selectedSizes[shapeId] = size;
+  document.getElementById(`size-small-${shapeId}`).classList.toggle('selected', size === 'small');
+  document.getElementById(`size-big-${shapeId}`).classList.toggle('selected', size === 'big');
+}
+
+function addPalmidaToCart(shapeId, shapeName, emoji, smallPrice, bigPrice) {
+  const size = selectedSizes[shapeId];
+  const price = size === 'small' ? smallPrice : bigPrice;
+  const sizeLabel = size === 'small' ? 'Petit 50g' : 'Grand 100g';
+  addToCart('palmida', shapeId, shapeName, sizeLabel, price, emoji);
+}
+
+// ===== FILTER LIQUID =====
+function filterLiquid(filter, btn) {
+  document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderLiquid(filter);
+}
+
+// ===== CART LOGIC =====
+function addToCart(type, id, name, variant, price, emoji) {
+  const key = `${type}-${id}-${variant}`;
+  const existing = cart.find(i => i.key === key);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ key, type, id, name, variant, price, emoji, qty: 1 });
+  }
+  updateCartUI();
+  showNotif();
+}
+
+function removeFromCart(key) {
+  cart = cart.filter(i => i.key !== key);
+  updateCartUI();
+}
+
+function changeQty(key, delta) {
+  const item = cart.find(i => i.key === key);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) removeFromCart(key);
+  else updateCartUI();
+}
+
+function updateCartUI() {
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  const total = cart.reduce((s, i) => s + i.qty * i.price, 0);
+
+  document.getElementById('cart-count').textContent = count;
+  document.getElementById('cart-total').textContent = total.toLocaleString('fr-FR');
+
+  const badge = document.getElementById('cart-badge');
+  badge.classList.add('cart-pulse');
+  setTimeout(() => badge.classList.remove('cart-pulse'), 400);
+
+  const list = document.getElementById('cart-items-list');
+  if (cart.length === 0) {
+    list.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div>Votre panier est vide.<br>Ajoutez des produits !</div>`;
+    return;
+  }
+  list.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-emoji">${item.emoji}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-sub">${item.variant}</div>
+        <div class="cart-item-controls">
+          <button class="qty-btn" onclick="changeQty('${item.key}',-1)">−</button>
+          <span class="qty-val">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${item.key}',1)">+</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+        <span class="cart-item-price">${(item.qty * item.price).toLocaleString('fr-FR')} FCFA</span>
+        <button class="del-btn" onclick="removeFromCart('${item.key}')">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function showNotif() {
+  const notif = document.getElementById('cart-notif');
+  notif.classList.add('show');
+  setTimeout(() => notif.classList.remove('show'), 2000);
+}
+
+function toggleCart() {
+  document.getElementById('cart-panel').classList.toggle('open');
+  document.getElementById('cart-overlay').classList.toggle('open');
+}
+
+// ===== WHATSAPP =====
+function sendWhatsApp() {
+  if (cart.length === 0) {
+    alert('Votre panier est vide ! Ajoutez des produits avant de commander.');
+    return;
+  }
+  const total = cart.reduce((s, i) => s + i.qty * i.price, 0);
+  let msg = `Bonjour Sandra Natur'lait, je valide ma commande :\n\n`;
+  cart.forEach(item => {
+    msg += `• ${item.qty}x ${item.name} – ${item.variant} – ${item.price.toLocaleString('fr-FR')} FCFA/u → ${(item.qty * item.price).toLocaleString('fr-FR')} FCFA\n`;
+  });
+  msg += `\n*Total produits : ${total.toLocaleString('fr-FR')} FCFA*`;
+  msg += `\n\nMon adresse de livraison : `;
+  msg += `\n\nMerci de confirmer ma commande 🙏`;
+
+  const encoded = encodeURIComponent(msg);
+  window.open(`https://wa.me/22990735721?text=${encoded}`, '_blank');
+}
+
+// ===== INIT =====
+renderLiquid('all');
+renderPalmida();
+</script>
+</body>
+</html>
